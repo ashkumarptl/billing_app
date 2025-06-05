@@ -1,8 +1,21 @@
 import 'package:billing_app/screens/home_screen.dart';
+import 'package:billing_app/screens/select_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() {
-  runApp(const MyApp());
+
+import 'package:hive/hive.dart';
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+
+ // final appDocumentDir = await getApplicationDocumentsDirectory();
+  //Hive.init(appDocumentDir.path);
+
+  // Register your Hive adapters here
+  // Hive.registerAdapter(ItemModelAdapter());
+
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -13,18 +26,20 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        iconTheme: IconThemeData().copyWith(
-        ),
-        textTheme: TextTheme(
-        ),
         appBarTheme: AppBarTheme(
           titleTextStyle: TextStyle().copyWith(
             color: Colors.black,
-                fontSize: 20,
-            fontWeight: FontWeight.bold
-          )
-        )
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
+      initialRoute: '/',
+      routes: {
+        '/home': (_) => HomeScreen(),
+        '/select_item': (_) => SelectItem(),
+        '/inventory':(_)=>SelectItem(),
+      },
       home: HomeScreen(),
     );
   }
