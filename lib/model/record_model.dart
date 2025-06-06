@@ -1,19 +1,36 @@
 // models/bill_model.dart
+import 'package:hive/hive.dart';
 import 'item_model.dart';
 
+part 'record_model.g.dart';
+
+@HiveType(typeId: 1)
 class Bill {
+  @HiveField(0)
   final String id;
+  @HiveField(1)
   final int billNumber;
+  @HiveField(2)
   final DateTime date;
+  @HiveField(3)
   final String customerName;
+  @HiveField(4)
   final String customerPhone;
+  @HiveField(5)
   final String customerAddress;
+  @HiveField(6)
   final List<Items> items;
+  @HiveField(7)
   final double subTotal;
+  @HiveField(8)
   final double discount;
+  @HiveField(9)
   final double totalAmount;
+  @HiveField(10)
   final String paymentMode;
+  @HiveField(11)
   final double receivedAmount;
+  @HiveField(12)
   final bool isPaid;
 
   Bill({

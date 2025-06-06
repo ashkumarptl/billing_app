@@ -37,7 +37,6 @@ class _SelectItemState extends ConsumerState<SelectItem> {
     final items = ref.watch(filteredItemsProvider);
     final isClicked = ref.watch(isSearchProvider);
     final notifier = ref.read(itemsProvider.notifier);
-    final selectNotifier = ref.read(selectedItemsProvider.notifier);
     final selectedItems = ref.watch(selectedItemsProvider);
     final isEditable = ref.watch(isEditableProvider);
 

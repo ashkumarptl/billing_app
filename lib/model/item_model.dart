@@ -1,12 +1,25 @@
+
+import 'package:hive/hive.dart';
+part 'item_model.g.dart';
+@HiveType(typeId: 0)
 class Items {
+  @HiveField(0)
   final String id;
+  @HiveField(1)
   final String productName;
+  @HiveField(2)
   final double quantity;
+  @HiveField(3)
   final double price;
+  @HiveField(4)
   final String? unit;
+  @HiveField(5)
   final String category;
+  @HiveField(6)
   final double? mrp;
+  @HiveField(7)
   final double? purchasePrice;
+  @HiveField(8)
   final String? image;
 
   Items({
