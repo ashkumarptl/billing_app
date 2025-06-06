@@ -1,4 +1,3 @@
-import 'package:billing_app/provider/selecteditem_provider.dart';
 import 'package:billing_app/utility/pdf_genarator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,7 +14,7 @@ class BillDetailsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final formatter = DateFormat('dd MMM yyyy – hh:mm a');
-    final List<Items> items = ref.watch(selectedItemsProvider);
+    final List<Items> items = bill.items;
 
     return Scaffold(
       appBar: AppBar(

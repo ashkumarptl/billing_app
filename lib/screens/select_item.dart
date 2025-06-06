@@ -37,6 +37,7 @@ class _SelectItemState extends ConsumerState<SelectItem> {
     final items = ref.watch(filteredItemsProvider);
     final isClicked = ref.watch(isSearchProvider);
     final notifier = ref.read(itemsProvider.notifier);
+    final selectNotifier = ref.read(selectedItemsProvider.notifier);
     final selectedItems = ref.watch(selectedItemsProvider);
     final isEditable = ref.watch(isEditableProvider);
 
@@ -151,9 +152,18 @@ class _SelectItemState extends ConsumerState<SelectItem> {
                                   .read(selectedItemsProvider.notifier)
                                   .toggleItem(item);
                             }
-                            if(isEditable)
-                              ref.read(isEditableProvider.notifier).state = !isEditable;
+                            if (isEditable)
+                              ref.read(isEditableProvider.notifier).state =
+                                  !isEditable;
                           },
+                          onLongPress: () {
+                            showItemBottomSheet(
+                              context,
+                              ref.read(itemsProvider.notifier),
+                              item,
+                            );
+                          },
+
                           child: Card(
                             elevation: 4,
                             color:
@@ -170,16 +180,23 @@ class _SelectItemState extends ConsumerState<SelectItem> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   // Image
-                                  CircleAvatar(
-                                    radius: 30,
-                                    backgroundImage:
-                                        item.image != null
-                                            ? FileImage(File(item.image!))
-                                            : null,
-                                    child:
-                                        item.image == null
-                                            ? const Icon(Icons.image, size: 28)
-                                            : null,
+                                  Row(
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 50,
+                                        backgroundImage:
+                                            item.image != null
+                                                ? FileImage(File(item.image!))
+                                                : null,
+                                        child:
+                                            item.image == null
+                                                ? const Icon(
+                                                  Icons.image,
+                                                  size: 28,
+                                                )
+                                                : null,
+                                      ),
+                                    ],
                                   ),
                                   const SizedBox(width: 12),
 
@@ -196,7 +213,7 @@ class _SelectItemState extends ConsumerState<SelectItem> {
                                                 item.productName,
                                                 style: const TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 16,
+                                                  fontSize: 20,
                                                 ),
                                               ),
                                             ),
@@ -204,8 +221,9 @@ class _SelectItemState extends ConsumerState<SelectItem> {
                                         ),
                                         const SizedBox(height: 4),
                                         Text(
-                                          "₹${item.price} x ${item.quantity}",
+                                          "₹${item.price.toStringAsFixed(1)} x ${(item.quantity).toStringAsFixed(3)} = ${(item.price * item.quantity).toStringAsFixed(2)}",
                                           style: const TextStyle(
+                                            fontSize: 13,
                                             color: Colors.black87,
                                           ),
                                         ),
@@ -231,92 +249,34 @@ class _SelectItemState extends ConsumerState<SelectItem> {
                                   ),
 
                                   // Controls
-                                  isEditable
-                                      ? PopupMenuButton<String>(
-                                        onSelected: (value) {
-                                          if (value == 'edit') {
-                                            showItemBottomSheet(
-                                              context,
-                                              ref.read(itemsProvider.notifier),
-                                              item,
-                                            );
-                                          } else if (value == 'delete') {
-                                            ref
-                                                .read(itemsProvider.notifier)
-                                                .deleteItem(item.id);
-                                          }
-                                        },
-                                        itemBuilder:
-                                            (context) => [
-                                              const PopupMenuItem(
-                                                value: 'edit',
-                                                child: Text('Edit'),
-                                              ),
-                                              const PopupMenuItem(
-                                                value: 'delete',
-                                                child: Text('Delete'),
-                                              ),
-                                            ],
-                                        icon: const Icon(Icons.more_vert),
-                                      )
-                                      : Row(
-                                        children: [
-                                          if(isSelected)
-                                          IconButton(
-                                            icon: const Icon(
-                                              Icons.remove_circle_outline,
-                                            ),
-                                            color: Colors.redAccent,
-                                            onPressed:
-                                                item.quantity > 1
-                                                    ? () {
-                                                      notifier.updateQuantity(
-                                                        item.id,
-                                                        -1,
-                                                      );
-                                                      if (isSelected) {
-                                                        ref
-                                                            .read(
-                                                              selectedItemsProvider
-                                                                  .notifier,
-                                                            )
-                                                            .decreaseQuantity(
-                                                              item.id,
-                                                            );
-                                                      }
-                                                    }
-                                                    : null,
+                                  if (isEditable)
+                                  PopupMenuButton<String>(
+                                    onSelected: (value) {
+                                      if (value == 'edit') {
+                                        showItemBottomSheet(
+                                          context,
+                                          ref.read(itemsProvider.notifier),
+                                          item,
+                                        );
+                                      } else if (value == 'delete') {
+                                        ref
+                                            .read(itemsProvider.notifier)
+                                            .deleteItem(item.id);
+                                      }
+                                    },
+                                    itemBuilder:
+                                        (context) => [
+                                          const PopupMenuItem(
+                                            value: 'edit',
+                                            child: Text('Edit'),
                                           ),
-                                          if(isSelected)
-                                          Text(
-                                            '${item.quantity}',
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                            ),
-                                          ),
-                                          if(isSelected)
-                                          IconButton(
-                                            icon: const Icon(
-                                              Icons.add_circle_outline,
-                                            ),
-                                            color: Colors.green,
-                                            onPressed: () {
-                                              notifier.updateQuantity(
-                                                item.id,
-                                                1,
-                                              );
-                                              if (isSelected) {
-                                                ref
-                                                    .read(
-                                                      selectedItemsProvider
-                                                          .notifier,
-                                                    )
-                                                    .increaseQuantity(item.id);
-                                              }
-                                            },
+                                          const PopupMenuItem(
+                                            value: 'delete',
+                                            child: Text('Delete'),
                                           ),
                                         ],
-                                      ),
+                                    icon: const Icon(Icons.more_vert),
+                                  ),
                                 ],
                               ),
                             ),
@@ -343,10 +303,10 @@ class _SelectItemState extends ConsumerState<SelectItem> {
                   ),
                 ).then((_) {
                   // Reset quantities to 1
-                  for (final item in selectedItems) {
-                    ref.read(itemsProvider.notifier).setQuantity(item.id, 1);
-                  }
-                  ref.read(selectedItemsProvider.notifier).resetQuantity();
+                  // for (final item in selectedItems) {
+                  //   ref.read(itemsProvider.notifier).setQuantity(item.id, 1);
+                  // }
+                  // ref.read(selectedItemsProvider.notifier).resetQuantity();
 
                   // Clear selected items
                   ref.read(selectedItemsProvider.notifier).clearSelectedItems();

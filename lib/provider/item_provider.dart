@@ -38,7 +38,7 @@ class ItemNotifier extends StateNotifier<List<Items>> {
     ];
   }
 
-  void setQuantity(String id, int newQuantity) {
+  void setQuantity(String id, double newQuantity) {
     state = [
       for (final item in state)
         if (item.id == id)

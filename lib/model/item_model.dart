@@ -1,7 +1,7 @@
 class Items {
   final String id;
   final String productName;
-  final int quantity;
+  final double quantity;
   final double price;
   final String? unit;
   final String category;
@@ -50,7 +50,7 @@ class Items {
   Items copyWith({
     String? id,
     String? productName,
-    int? quantity,
+    double? quantity,
     double? price,
     String? image,
     String? unit,

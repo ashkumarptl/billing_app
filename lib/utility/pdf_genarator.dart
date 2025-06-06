@@ -44,7 +44,7 @@ Future<Uint8List> generateBillPdf(Bill bill) async {
               ),
               pw.SizedBox(height: 10),
               pw.Text("Total Items: ${bill.items.length}"),
-              pw.Text("Total Quantity: ${bill.items.fold(0, (sum, item) => sum + item.quantity)}"),
+              pw.Text("Total Quantity: ${bill.items.fold<num>(0, (sum, item) => sum + item.quantity)}"),
               pw.Divider(),
 
               // Totals

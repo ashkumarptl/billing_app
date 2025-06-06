@@ -111,7 +111,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         fontSize: 16,
                       ),
                     ),
-
                   ],
                 ),
                 subtitle: Column(
@@ -132,7 +131,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         'Status: ${bill.isPaid}',
                         style: TextStyle(
                           fontSize: 13,
-                          color: bill.isPaid == "Paid"
+                          color: bill.isPaid == true
                               ? Colors.green
                               : Colors.redAccent,
                         ),

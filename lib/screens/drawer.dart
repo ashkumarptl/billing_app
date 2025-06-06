@@ -19,10 +19,16 @@ class Drawer_screen extends StatelessWidget {
               ListTile(
                 leading: Icon(Icons.home),
                 title: Text('Home'),
+                onTap: (){
+                  Navigator.pushReplacementNamed(context, '/home');
+                },
               ),
               ListTile(
                 leading: Icon(Icons.note),
                 title: Text('Sell list'),
+                onTap: (){
+                  Navigator.pushNamed(context, '/sellReport');
+                },
               ),
               ListTile(
                 leading: Icon(Icons.note),
@@ -31,6 +37,9 @@ class Drawer_screen extends StatelessWidget {
               ListTile(
                 leading: Icon(Icons.summarize),
                 title: Text('Report'),
+                onTap: (){
+                  Navigator.pushNamed(context, '/sellReport');
+                },
               ),
               ListTile(
                 leading: Icon(Icons.inventory),
