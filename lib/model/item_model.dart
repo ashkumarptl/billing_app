@@ -29,7 +29,7 @@ class Items {
     required this.price,
     this.image,
     required this.unit,
-    this.category = 'Category',
+    this.category = 'Uncategorized',
     this.mrp,
     this.purchasePrice,
   });

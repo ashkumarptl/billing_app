@@ -4,14 +4,14 @@ import '../provider/item_provider.dart'; // adjust import path
 import '../model/record_model.dart';
 import 'bill_detail.dart'; // contains the Bill model
 
-class SellReports extends ConsumerStatefulWidget {
-  const SellReports({super.key});
+class ReportHistory extends ConsumerStatefulWidget {
+  const ReportHistory({super.key});
 
   @override
-  ConsumerState<SellReports> createState() => _ReportScreenState();
+  ConsumerState<ReportHistory> createState() => _ReportScreenState();
 }
 
-class _ReportScreenState extends ConsumerState<SellReports> {
+class _ReportScreenState extends ConsumerState<ReportHistory> {
   TextEditingController searchController = TextEditingController();
   String searchQuery = '';
 
@@ -26,7 +26,8 @@ class _ReportScreenState extends ConsumerState<SellReports> {
     final bills = ref.watch(billsProvider);
 
     if (bills.isEmpty) {
-      return const Scaffold(
+      return  Scaffold(
+        appBar: AppBar(title: Text('No bills')),
         body: Center(child: Text('No bills recorded yet.')),
       );
     }

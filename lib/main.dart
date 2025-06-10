@@ -1,7 +1,7 @@
 import 'package:billing_app/provider/item_provider.dart';
 import 'package:billing_app/screens/home_screen.dart';
 import 'package:billing_app/screens/select_item.dart';
-import 'package:billing_app/screens/sell_list.dart';
+import 'package:billing_app/screens/report_history.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         '/home': (_) => HomeScreen(),
         '/select_item': (_) => SelectItem(),
         '/inventory':(_)=>SelectItem(),
-        '/sellReport':(_)=>SellReports(),
+        '/sellReport':(_)=>ReportHistory(),
       },
       home: HomeScreen(),
     );

@@ -43,7 +43,7 @@ class Drawer_screen extends StatelessWidget {
               ),
               ListTile(
                 leading: Icon(Icons.inventory),
-                title: Text('Inventory'),
+                title: Text('Products'),
                 onTap: (){
                   Navigator.pushNamed(context, '/inventory');
                 },

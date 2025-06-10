@@ -1,7 +1,6 @@
 import 'package:billing_app/model/item_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-
 import '../model/record_model.dart';
 
 final itemsBoxProvider = Provider<Box<Items>>((ref) => throw UnimplementedError());
@@ -65,8 +64,6 @@ class ItemNotifier extends StateNotifier<List<Items>> {
     ];
     _syncHive();
   }
-
-
 }
 
 //filter

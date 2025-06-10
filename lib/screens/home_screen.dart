@@ -126,9 +126,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         style: const TextStyle(fontSize: 13, color: Colors.grey),
                       ),
                     Text("Total Items: ${bill.items.length}"),
-                    if (bill.isPaid)
                       Text(
-                        'Status: ${bill.isPaid}',
+                        bill.isPaid?'Paid':'Unpaid',
                         style: TextStyle(
                           fontSize: 13,
                           color: bill.isPaid == true
